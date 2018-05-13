@@ -45,6 +45,9 @@ install:
   # Python Version
   - python --version
 
+  # Install dependencies
+  - python -m pip install XlsxWriter
+
 # Run test script(s)
 script:
   - (cd ${DIR} && ./${SCRIPT})
