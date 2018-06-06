@@ -78,16 +78,16 @@ def WriteXLSX(filename, groups, net, headings, prefs):
 
             # Add BOM information
             bom_info = [
-                ["Component Groups:", nGroups],
-                ["Component Count:", nTotal],
-                ["Fitted Components:", nFitted],
-                ["Number of PCBs:", prefs.boards],
-                ["Total components:", nBuild],
-                ["Schematic Version:", net.getVersion()],
-                ["Schematic Date:", net.getSheetDate()],
-                ["BoM Date:", net.getDate()],
-                ["BoM Date:", net.getDate()],
-                ["KiCad Version:", net.getTool()],
+                ["Component Groups:", str(nGroups)],
+                ["Component Count:", str(nTotal)],
+                ["Fitted Components:", str(nFitted)],
+                ["Number of PCBs:", str(prefs.boards)],
+                ["Total components:", str(nBuild)],
+                ["Schematic Version:", str(net.getVersion())],
+                ["Schematic Date:", str(net.getSheetDate())],
+                ["BoM Date:", str(net.getDate())],
+                ["BoM Date:", str(net.getDate())],
+                ["KiCad Version:", str(net.getTool())],
             ]
             for group in bom_info:
                 worksheet.write(cur_row, 0, group[0], bold)
