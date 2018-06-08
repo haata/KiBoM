@@ -30,6 +30,7 @@ class BomPref:
     OPT_INCLUDE_VERSION = "include_version_number"
     OPT_DEFAULT_BOARDS = "number_boards"
     OPT_DEFAULT_PCBCONFIG = "board_variant"
+    OPT_REMOVE_EMPTY_COLUMNS = "remove_empty_columns"
 
     OPT_CONFIG_FIELD = "fit_field"
 
@@ -128,6 +129,7 @@ class BomPref:
                 self.useRegex = self.checkOption(cf, self.OPT_USE_REGEX, default=True)
                 self.mergeBlankFields = self.checkOption(cf, self.OPT_MERGE_BLANK, default=True)
                 self.includeVersionNumber = self.checkOption(cf, self.OPT_INCLUDE_VERSION, default=True)
+                self.removeEmptyColumns = self.checkOption(cf, self.OPT_REMOVE_EMPTY_COLUMNS, default=False)
 
             if cf.has_option(self.SECTION_GENERAL, self.OPT_CONFIG_FIELD):
                 self.configField = cf.get(self.SECTION_GENERAL, self.OPT_CONFIG_FIELD)
@@ -196,6 +198,7 @@ class BomPref:
         self.addOption(cf, self.OPT_USE_REGEX, self.useRegex, comment="If '{opt}' option is set to 1, each component group will be tested against a number of regular-expressions (specified, per column, below). If any matches are found, the row is ignored in the output file".format(opt=self.OPT_USE_REGEX))
         self.addOption(cf, self.OPT_MERGE_BLANK, self.mergeBlankFields, comment="If '{opt}' option is set to 1, component groups with blank fields will be merged into the most compatible group, where possible".format(opt=self.OPT_MERGE_BLANK))
         self.addOption(cf, self.OPT_INCLUDE_VERSION, self.includeVersionNumber, comment="If '{opt}' option is set to 1, the schematic version number will be appended to the filename.")
+        self.addOption(cf, self.OPT_REMOVE_EMPTY_COLUMNS, self.removeEmptyColumns, comment="If '{opt}' option is set to 1, any empty columns in the BOM will be removed.")
 
         cf.set(self.SECTION_GENERAL, '; Field name used to determine if a particular part is to be fitted')
         cf.set(self.SECTION_GENERAL, self.OPT_CONFIG_FIELD, self.configField)

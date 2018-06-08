@@ -67,7 +67,10 @@ def WriteXLSX(filename, groups, net, headings, prefs):
                     row[index] = newint
                 except:
                     pass
-                worksheet.write(cur_row, index, row[index])
+                try:
+                    worksheet.write(cur_row, index, row[index].decode())
+                except AttributeError:
+                    worksheet.write(cur_row, index, row[index])
 
             # Increment row
             cur_row += 1
@@ -78,16 +81,15 @@ def WriteXLSX(filename, groups, net, headings, prefs):
 
             # Add BOM information
             bom_info = [
-                ["Component Groups:", str(nGroups)],
-                ["Component Count:", str(nTotal)],
-                ["Fitted Components:", str(nFitted)],
-                ["Number of PCBs:", str(prefs.boards)],
-                ["Total components:", str(nBuild)],
-                ["Schematic Version:", str(net.getVersion())],
-                ["Schematic Date:", str(net.getSheetDate())],
-                ["BoM Date:", str(net.getDate())],
-                ["BoM Date:", str(net.getDate())],
-                ["KiCad Version:", str(net.getTool())],
+                ["Component Groups:", nGroups],
+                ["Component Count:", nTotal],
+                ["Fitted Components:", nFitted],
+                ["Number of PCBs:", prefs.boards],
+                ["Total components:", nBuild],
+                ["Schematic Version:", net.getVersion()],
+                ["Schematic Date:", net.getSheetDate()],
+                ["BoM Date:", net.getDate().decode()],
+                ["KiCad Version:", net.getTool().decode()],
             ]
             for group in bom_info:
                 worksheet.write(cur_row, 0, group[0], bold)

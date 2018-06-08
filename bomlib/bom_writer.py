@@ -8,7 +8,7 @@ from bomlib.component import *
 from xml.etree import ElementTree
 from bomlib.preferences import BomPref
 
-import os, shutil
+import os, shutil, copy
 
 #make a tmp copy of a given file
 def TmpFileCopy(filename, fmt):
@@ -35,6 +35,18 @@ def WriteBoM(filename, groups, net, headings = columns.ColumnList._COLUMNS_DEFAU
 
     #remove any headings that appear in the ignore[] list
     headings = [h for h in headings if not h.lower() in [i.lower() for i in prefs.ignore]]
+
+    # Remove any columns that have no entries
+    if prefs.removeEmptyColumns:
+        entries = []
+        for group in groups:
+            row = group.getRow(headings)
+            for heading, field in zip(headings, row):
+                if len(field) > 0 and heading not in entries:
+                    entries.append(heading)
+    for field in copy.copy(headings):
+        if field not in entries:
+            headings.remove(field)
 
     #if no extension is given, assume .csv (and append!)
     if len(filename.split('.')) < 2:
