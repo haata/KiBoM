@@ -76,8 +76,8 @@ def WriteXLSX(filename, groups, net, headings, prefs):
             cur_row += 1
 
         if not prefs.hideHeaders:
-            # Blank rows, skip 5 rows
-            cur_row += 5
+            # Blank rows, skip 6 rows
+            cur_row += 6
 
             # Add BOM information
             bom_info = [
